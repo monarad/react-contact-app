@@ -1,7 +1,4 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+// اگر از ESM استفاده می‌کنید (type: "module")
+export default {
+  plugins: [], // فقط پلاگین‌های لازم اینجا میاد
+};
