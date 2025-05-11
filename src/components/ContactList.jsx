@@ -10,7 +10,7 @@ import { useContacts } from "../context/ContactContext";
 
 function ContactList() {
   // const [contacts, setContacts] = useState([]);
-  const{contacts,dispatch}=useContacts()
+  const { contacts, searchTerm, dispatch } = useContacts();
   const [showModal, setShowModal] = useState(false);
   const [editContact, setEditContact] = useState(null);
 
@@ -61,7 +61,35 @@ function ContactList() {
     setShowModal(true);
   };
 
+  // // فیلتر کانتکت‌ها بر اساس سرچ
+  // const filteredContacts = contacts.filter((c) =>
+  //   `${c.name} ${c.lastname} ${c.email}`
+  //     .toLowerCase()
+  //     .includes(searchTerm.toLowerCase())
+  // );
 
+  // const filteredContacts = contacts.filter((c) => {
+  //   const name = c.name || "";
+  //   const lastname = c.lastname || "";
+  //   const email = c.email || "";
+  //   return `${name} ${lastname} ${email}`
+  //     .toLowerCase()
+  //     .includes(searchTerm.toLowerCase());
+  // });
+
+  // جلوگیری از ارور اگر داده هنوز نیامده یا searchTerm خالی است
+  if (!contacts || !Array.isArray(contacts)) return null;
+  if (typeof searchTerm !== "string") return null;
+
+  // فیلتر بر اساس سرچ (با بررسی امن)
+  const filteredContacts = contacts.filter((c) => {
+    const name = c.name || "";
+    const lastname = c.lastname || "";
+    const email = c.email || "";
+    return `${name} ${lastname} ${email}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div>
@@ -76,7 +104,7 @@ function ContactList() {
       </div>
 
       <div className="space-y-4">
-        {contacts.map((contact) => (
+        {filteredContacts.map((contact) => (
           <ContactItem
             key={contact.id}
             contact={contact}

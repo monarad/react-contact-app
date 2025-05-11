@@ -4,6 +4,7 @@ const ContactContext = createContext();
 
 const initialState = {
   contacts: [],
+  searchTerm: "",
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,6 +30,11 @@ const reducer = (state, action) => {
         ...state,
         contacts: state.contacts.filter((c) => c.id !== action.payload),
       };
+    case "SET_SEARCH_TERM":
+      return {
+        ...state,
+        searchTerm: action.payload,
+      };
 
     default:
       return state;
@@ -39,7 +45,7 @@ export function ContactProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <ContactContext.Provider value={{ contacts: state.contacts, dispatch }}>
+    <ContactContext.Provider value={{ contacts: state.contacts,searchTerm:state.searchTerm, dispatch }}>
       {children}
     </ContactContext.Provider>
   );
