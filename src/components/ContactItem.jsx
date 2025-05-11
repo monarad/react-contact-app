@@ -5,7 +5,7 @@ function ContactItem({contact}) {
     <div className="flex justify-between items-center bg-gray-50 p-4 rounded shadow">
       <div>
         <h2 className="text-lg font-semibold">
-          {contact.firstName} {contact.lastName}
+          {contact.name} {contact.lastname}
         </h2>
         <p className="text-gray-600">{contact.email}</p>
       </div>

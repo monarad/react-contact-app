@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
-import ContactItem from './ContactItem';
+
+import React ,{ useEffect, useState } from "react"; 
+import axios from "axios";
+import ContactItem from "./ContactItem";
+
 import SearchBar from './SearchBar';
 
-function ContactList() {
-    const [contacts, setContacts] = useState([
-      { id: 1, firstName: "Ali", lastName: "Rad", email: "ali@example.com" },
-      {
-        id: 2,
-        firstName: "Sara",
-        lastName: "Mohammadi",
-        email: "sara@example.com",
-      },
 
-    ]);
+function ContactList() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const res = await axios.get("http://localhost:3001/contacts");
+        setContacts(res.data);
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
+    };
+
+    fetchContacts();
+  }, []);
+
   return (
     <div>
       <SearchBar />
