@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import './App.css'
 import ContactList from "./components/ContactList";
-import ContactForm from "./components/ContactForm";
+
 
 function App() {
  
@@ -15,7 +15,7 @@ function App() {
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
           Contact List
         </h1>
-        <ContactForm />
+       
         <hr className="my-6" />
         <ContactList />
       </div>
