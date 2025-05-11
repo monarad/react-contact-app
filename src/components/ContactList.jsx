@@ -6,6 +6,7 @@ import ContactItem from "./ContactItem";
 
 import SearchBar from './SearchBar';
 import { useContacts } from "../context/ContactContext";
+import { AnimatePresence } from "framer-motion";
 
 
 function ContactList() {
@@ -44,8 +45,12 @@ function ContactList() {
 
   useEffect(() => {
     const fetchContacts = async () => {
-      const res = await axios.get("http://localhost:3001/contacts");
-      dispatch({ type: "SET_CONTACTS", payload: res.data });
+      try {
+        const res = await axios.get("http://localhost:3001/contacts");
+        dispatch({ type: "SET_CONTACTS", payload: res.data });
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
     };
 
     fetchContacts();
@@ -104,6 +109,7 @@ function ContactList() {
       </div>
 
       <div className="space-y-4">
+      <AnimatePresence>
         {filteredContacts.map((contact) => (
           <ContactItem
             key={contact.id}
@@ -111,6 +117,7 @@ function ContactList() {
             onEdit={openModalToEdit}
           />
         ))}
+        </AnimatePresence>
       </div>
 
       {showModal && (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useContacts } from "../context/ContactContext";
+import { motion } from "framer-motion";
 
 function ContactItem({ contact, onEdit }) {
   const { dispatch } = useContacts();
@@ -12,7 +13,13 @@ function ContactItem({ contact, onEdit }) {
     }
   };
   return (
-    <div className="flex justify-between items-center bg-gray-50 p-4 rounded shadow">
+    <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.3 }}
+    className="flex justify-between items-center bg-gray-50 p-4 rounded shadow"
+ >
       <div>
         <h2 className="text-lg font-semibold">
           {contact.name} {contact.lastname}
@@ -33,7 +40,7 @@ function ContactItem({ contact, onEdit }) {
           Delete
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useContacts } from "../context/ContactContext";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function ContactModal({ contactToEdit, onClose }) {
   const { dispatch } = useContacts();
@@ -29,6 +30,7 @@ function ContactModal({ contactToEdit, onClose }) {
         formData
       );
       dispatch({ type: "EDIT_CONTACT", payload: updated.data });
+      toast.success("Contact edited successfully!");
     } else {
       // Add
       const newContact = await axios.post(
@@ -36,6 +38,7 @@ function ContactModal({ contactToEdit, onClose }) {
         formData
       );
       dispatch({ type: "ADD_CONTACT", payload: newContact.data });
+      toast.success("Contact added successfully!");
     }
 
     onClose();
