@@ -109,14 +109,18 @@ function ContactList() {
       </div>
 
       <div className="space-y-4">
-      <AnimatePresence>
-        {filteredContacts.map((contact) => (
-          <ContactItem
-            key={contact.id}
-            contact={contact}
-            onEdit={openModalToEdit}
-          />
-        ))}
+        <AnimatePresence>
+          {filteredContacts.length ? (
+            filteredContacts.map((contact) => (
+              <ContactItem
+                key={contact.id}
+                contact={contact}
+                onEdit={openModalToEdit}
+              />
+            ))
+          ) : (
+            <p>No contacts yet!</p>
+          )}
         </AnimatePresence>
       </div>
 

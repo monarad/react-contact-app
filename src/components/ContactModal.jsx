@@ -22,10 +22,17 @@ function ContactModal({ contactToEdit, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, lastname, email } = formData;
+     try {
+       const { name, lastname, email } = formData;
+       if (!name || !lastname || !email) {
+         toast.error("لطفاً تمام فیلدها را پر کنید!");
+         return;
+       }
 
-    if (contactToEdit) {
-      // Edit
-      const updated = await axios.put(
+       if (contactToEdit) {
+         // Edit
+         const updated = await axios.put(
         `http://localhost:3001/contacts/${contactToEdit.id}`,
         formData
       );
@@ -37,12 +44,17 @@ function ContactModal({ contactToEdit, onClose }) {
         "http://localhost:3001/contacts",
         formData
       );
+
       dispatch({ type: "ADD_CONTACT", payload: newContact.data });
       toast.success("Contact added successfully!");
     }
 
     onClose();
-  };
+  }catch(error){
+    toast.error("خطا در ذخیره مخاطب!");
+    console.error(error);
+  }
+}
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
